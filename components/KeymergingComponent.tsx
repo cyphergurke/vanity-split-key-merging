@@ -149,29 +149,13 @@ const KeymergingComponent = () => {
           </button>
         </div>
       </form>
-      <Dialog isOpen={isDialogOpen} setIsDialogOpen={setIsDialogOpen}>
-        <div className=''>
-          <div className='text-black text-lg'>
-            <label className=' text-lg  font-bold'>
-              Private Key WIF:
-            </label>
-            <p className='font-semibold'>
-              {privateKeyWIF}
-            </p>
-            <div className='flex justify-center items-center'>
-              <img className='ml-auto mr-auto' src={privQr} alt="PrivateKey" />
-            </div>
-          </div>
-          <div className='text-black text-lg'>
-            <label className=' text-lg font-bold'>
-              Bitcoin Address:
-            </label>
-            <p className='font-semibold'>
-              {formData.vaddress}
-            </p>
-          </div>
-        </div>
-      </Dialog>
+      <Dialog
+        isOpen={isDialogOpen}
+        setIsDialogOpen={setIsDialogOpen}
+        privateKeyWIF={privateKeyWIF}
+        privQr={privQr}
+        vaddress={formData.vaddress}
+      />
     </div>
   );
 }
