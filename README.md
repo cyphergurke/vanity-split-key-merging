@@ -1,4 +1,26 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Vanity Address Split Key Merging Webapplication
+Combines two Private Keys and returns a new private key that is the result of merging them. This application can be used to get the final Private key for a Split key generated Vanity Address.
+
+
+## Features
+- The merging tool can get any type of Bitcoin Privatekey and returns a final private key WIF-Compressed.
+
+### Supports the following Bitcoin Mainnet address types:
+- P2PKH (Pay to Public Key Hash) Legacy
+- P2SH (Pay to Script Hash) Nested SegWit
+- Bech32 Native SegWit
+
+## Test Keys
+
+ - const vanity_address: string = '1btcxcVyqf8jfkscQmYPBGRurZQG8PMtb';
+ - const privKeyorg: string = 'KzNCSsMnhf34GBt91tSbgDAC2YKt6cuX2XDiRzZtC487koBUHh5N';
+ - const partialPrivKeyorg: string = 'Kyc35db3dauFrVLSDYWgmrqAQCEcPf1Xnkv9QbGWYboE3FkV7rMv';
+ 
+ - expected private key: L53BPaiJWm3wJ4APYRzHo6sTUTYc76YY7Kx6ScyTBRkrYJ1My3S4
+
+ mergeKeys(vanity_address, privKeyorg, partialPrivKeyorg);
+
+
 
 ## Getting Started
 
@@ -12,23 +34,6 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Todo: 
+Create a pure client side application e.g. with react and use there the components Dialog.tsx and KeymergingComponent.tsx as well as the files from utils keyMerging.ts and validation.ts
