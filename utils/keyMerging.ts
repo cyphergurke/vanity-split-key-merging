@@ -103,5 +103,6 @@ export function mergeKeys(addr: string, privKey: string, partialPrivKey: string)
  
  //expected private key: L53BPaiJWm3wJ4APYRzHo6sTUTYc76YY7Kx6ScyTBRkrYJ1My3S4
 
- mergeKeys(vanity_address, privKeyorg, partialPrivKeyorg); */
+ mergeKeys(vanity_address, privKeyorg, partialPrivKeyorg);
 
+ */

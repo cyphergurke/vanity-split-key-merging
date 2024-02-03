@@ -1,13 +1,13 @@
-import { KeymergingComponent } from '@/components'
-
+import KeymergingComponent from "@/components/KeymergingComponent";
 
 
 export default function Home() {
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        
+    <main className="flex h-[100vh] w-[100vw] bg-main justify-center items-center">
+      <div className='w-2/3'>
         <KeymergingComponent />
+      </div>
     </main>
   )
 }
