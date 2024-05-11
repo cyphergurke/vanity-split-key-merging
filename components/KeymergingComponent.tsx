@@ -6,6 +6,9 @@ import React, { useState } from 'react';
 import { z } from 'zod';
 import Dialog from './Dialog';
 import QRCode from 'qrcode'
+import { Button } from './ui/button';
+import { Label } from './ui/label';
+import { Input } from './ui/input';
 
 const fieldSchemas: any = {
   vaddress: z.string().refine((value) => isValidBitcoinAddress(value), {
@@ -45,18 +48,12 @@ const KeymergingComponent = () => {
         [name]: result.error.issues[0].message, // Assuming we take the first error message
       }));
     } else {
-      // If validation is successful, clear any existing error for that field
       setFormErrors((prev) => ({
         ...prev,
         [name]: '',
       }));
     }
   };
-
-  const vanity_address: string = '1btcxcVyqf8jfkscQmYPBGRurZQG8PMtb';
-  const privKeyorg: string = 'KzNCSsMnhf34GBt91tSbgDAC2YKt6cuX2XDiRzZtC487koBUHh5N';
-  const partialPrivKeyorg: string = 'Kyc35db3dauFrVLSDYWgmrqAQCEcPf1Xnkv9QbGWYboE3FkV7rMv';
-
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -109,8 +106,8 @@ const KeymergingComponent = () => {
       {/* Your submit button */}
       <form onSubmit={handleSubmit} className="">
         <div className='flex flex-col m-5 gap-4 text-white'>
-          <label className=' text-lg'>Vanity Address:</label>
-          <input
+          <Label className=' text-lg'>Vanity Address:</Label>
+          <Input
             type="text"
             name='vaddress'
             className={`text-black p-2 m-2 rounded-lg ${formErrors && formErrors.privkey ? 'border-red-400 border-4' : ''}`}
@@ -118,8 +115,8 @@ const KeymergingComponent = () => {
             onChange={handleChange}
           />
           {formErrors && formErrors.vaddress && <p className='text-red-300 text-2xl text-center '>{formErrors.vaddress}</p>}
-          <label className=' text-lg'>Private Key:</label>
-          <input
+          <Label className=' text-lg'>Private Key:</Label>
+          <Input
             type="text"
             name='privkey'
             className={`text-black p-2 m-2 rounded-lg ${formErrors && formErrors.privkey ? 'border-red-400 border-4' : ''}`}
@@ -127,8 +124,8 @@ const KeymergingComponent = () => {
             onChange={handleChange}
           />
           {formErrors && formErrors.privkey && <p className='text-red-400 text-xl text-center'>{formErrors.privkey}</p>}
-          <label className=' text-lg'>Partial Private Key:</label>
-          <input
+          <Label className=' text-lg'>Partial Private Key:</Label>
+          <Input
             type="text"
             name='partialkey'
             className={`text-black p-2 m-2 rounded-lg ${formErrors && formErrors.privkey ? 'border-red-400 border-4' : ''}`}
@@ -137,7 +134,7 @@ const KeymergingComponent = () => {
           />
           {formErrors && formErrors.partialkey && <p className='text-red-400 text-xl text-center'>{formErrors.partialkey}</p>}
 
-          <button
+          {/*           <Button
             type="submit"
             className={`
             bg-green-700 transition-all hover:bg-green-800 rounded-lg p-2 text-2xl
@@ -146,16 +143,16 @@ const KeymergingComponent = () => {
                 || formErrors.privkey
                 || formErrors.vaddress ? 'opacity-50 cursor-not-allowed' : ''}`}>
             Merge
-          </button>
+          </Button> */}
+          <Dialog
+            isOpen={isDialogOpen}
+            setIsDialogOpen={setIsDialogOpen}
+            privateKeyWIF={privateKeyWIF}
+            privQr={privQr}
+            vaddress={formData.vaddress}
+          />
         </div>
       </form>
-      <Dialog
-        isOpen={isDialogOpen}
-        setIsDialogOpen={setIsDialogOpen}
-        privateKeyWIF={privateKeyWIF}
-        privQr={privQr}
-        vaddress={formData.vaddress}
-      />
     </div>
   );
 }
