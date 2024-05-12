@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AiOutlineQrcode } from 'react-icons/ai';
 import { mergeKeys } from '@/utils/keyMerging';
 import { QrReader } from "react-qr-reader";
@@ -29,7 +29,7 @@ const fieldSchemas: any = {
 
 const validationSchema = z.object(fieldSchemas);
 
-const KeymergingComponent = () => {
+const KeymergingComponent = ({ vaddress, partialkey }: any) => {
   const [formErrors, setFormErrors] = useState<{ [key: string]: string } | null>(null);
   const [privateKeyWIF, setPrivateKeyWIF] = useState<string>();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -43,6 +43,14 @@ const KeymergingComponent = () => {
   const [qrReaderPrivOpen, setQrReaderPrivOpen] = useState(false);
   const [qrReaderPartPrivOpen, setQrReaderPartPrivOpen] = useState(false);
   const [valid, setValid] = useState(false);
+
+  useEffect(() => {
+    if (vaddress && partialkey) {
+      setFormData({ vaddress: vaddress, partialkey: partialkey, privkey: '' })
+    }
+  }, [vaddress, partialkey, setFormData])
+
+
 
   const qrReaderRefVaddr = useRef<HTMLDivElement | null>(null);
   const qrReaderRefPartPriv = useRef<HTMLDivElement | null>(null);
@@ -68,8 +76,8 @@ const KeymergingComponent = () => {
     }
   };
 
-  
-  
+
+
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -85,6 +93,7 @@ const KeymergingComponent = () => {
         const qrcode = await QRCode.toDataURL(finalKey);
         setPrivQr(qrcode)
       } else {
+        setFormErrors({privkey: "invalid input"})
         setPrivateKeyWIF("Error: invalid input");
       }
     } catch (error: any) {
@@ -100,14 +109,14 @@ const KeymergingComponent = () => {
     }
   };
 
-useEffect(() => {
-  if (formData.partialkey || formData.privkey || formData.vaddress) {
-    if (formData.partialkey && formData.privkey && formData.vaddress) {
-      setFormErrors(null);
-      setValid(true)
+  useEffect(() => {
+    if (formData.partialkey || formData.privkey || formData.vaddress) {
+      if (formData.partialkey && formData.privkey && formData.vaddress) {
+        setFormErrors(null);
+        setValid(true)
+      }
     }
-  }
-}, [formData])
+  }, [formData])
 
 
   const handleScan = async (name: string, data: any | null, ref: any) => {
@@ -248,7 +257,7 @@ useEffect(() => {
 
           <Button
             type="submit"
-            disabled={formErrors !== null  }
+            disabled={formErrors !== null}
             className="
             bg-green-700 transition-all hover:bg-green-800 rounded-lg p-2 text-2xl">
             Merge

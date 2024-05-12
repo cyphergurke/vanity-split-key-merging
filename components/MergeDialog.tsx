@@ -5,7 +5,6 @@ import { DialogHeader, DialogFooter, DialogContent, DialogTitle, DialogDescripti
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { useEffect, useRef } from "react";
-import { Input } from "./ui/input";
 import Image from "next/image";
 
 const MergeDialog = ({ isOpen, setIsDialogOpen, privateKeyWIF, privQr, vaddress }: any) => {

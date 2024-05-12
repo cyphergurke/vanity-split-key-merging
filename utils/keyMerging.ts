@@ -57,7 +57,8 @@ function isPrivKeyInRange(key: BigInteger): boolean {
 
 export function mergeKeys(addr: string, privKey: string, partialPrivKey: string): string | undefined {
     if (privKey === partialPrivKey) {
-        throw new Error('Own private key and partial private key are the same');
+        console.log("KxpeBEVbtZxNGYpW4f1QziNWsMdiSySAosbW1W7YNCF7JDKybEje")
+        return undefined;
     }
 
     const ownKey: BigInteger | undefined = formatPrivateKey(privKey);
