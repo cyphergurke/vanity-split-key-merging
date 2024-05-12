@@ -42,7 +42,10 @@ const MergeDialog = ({ isOpen, setIsDialogOpen, privateKeyWIF, privQr, vaddress 
 
   return (
     <Dialog open={isOpen} >
-      <DialogContent className="flex flex-col justify-center w-[90%] md:max-w-[475px] lg:max-w-[475px] mx-auto" ref={dialogRef}>
+      <DialogContent
+        className="flex flex-col justify-center w-[90%] md:max-w-[475px] lg:max-w-[475px] mx-auto"
+        ref={dialogRef}
+      >
         <DialogHeader>
           <DialogTitle>Merge</DialogTitle>
           <DialogDescription>
