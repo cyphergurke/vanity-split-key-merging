@@ -1,0 +1,50 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    container:
+      image: node:lts-alpine
+
+    steps:
+      - name: Install SSH Client and Dependencies
+        run: apk add --no-cache openssh
+
+      - name: Install PNPM
+        run: npm install -g pnpm
+      
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build the application
+        run: pnpm run build
+
+      - name: Add SSH Key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.VEGETA_SERVER }}
+
+      - name: Deploy via SSH
+        env:
+          VEGETA_SERVER_IP: ${{ secrets.VEGETA_SERVER_IP }} 
+        run: |
+          ssh -o StrictHostKeyChecking=no vegeta@${{ secrets.VEGETA_SERVER_IP }} << 'EOF'
+            cd ~/vanity2/vanity-split-key-merging
+            git pull origin main
+            pnpm install
+            pnpm run build
+            pm2 reload vslitkey-merging --update-env
+          EOF
+
