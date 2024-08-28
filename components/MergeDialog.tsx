@@ -57,7 +57,11 @@ const MergeDialog = ({ isOpen, setIsDialogOpen, privateKeyWIF, privQr, vaddress 
         <p className='font-semibold text-wrap break-words w-full p-2 '>
           {privateKeyWIF}
         </p>
-        <Image width={200} height={200} className='ml-auto mr-auto' src={privQr} alt="Private Key" />
+        <Image
+          width={200}
+          height={200}
+          src={`data:image/png;base64,${privQr.split(',')[1]}`}
+          className='ml-auto mr-auto' alt="Private Key" />
         <Button
           className="bg-green-600 hover:bg-green-800 text-md   "
           onClick={() => handleCopy()}>
